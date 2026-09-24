@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="lt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Salient įgyvendinimo gidas | Real Story</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="assets/img/favicon-32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+  <style>
+    :root { --ink:#111114; --text:#3C3E45; --muted:#6F727A; --sand:#F6F3EE; --line:#E4DFD7; --red:#E2231A; --sea:#0F5C8A; --r:12px;
+      --font-h:"Plus Jakarta Sans",system-ui,sans-serif; --font-b:"Inter",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,Menlo,monospace; }
+    * { box-sizing:border-box; } html { scroll-behavior:smooth; scroll-padding-top:24px; }
+    body { margin:0; background:#fff; color:var(--text); font:400 16.5px/1.7 var(--font-b); -webkit-font-smoothing:antialiased; }
+    a { color:var(--ink); text-underline-offset:3px; } img { max-width:100%; height:auto; display:block; }
+    .wrap { max-width:1040px; margin:0 auto; padding:0 clamp(16px,5vw,40px); }
+    .mockbar { background:#0B0B0D; color:#A7A9B0; font:400 13px/1.4 var(--font-b); }
+    .mockbar .wrap { display:flex; flex-wrap:wrap; align-items:center; gap:6px 14px; min-height:38px; padding-block:4px; max-width:1480px; }
+    .mockbar strong { color:#fff; font-weight:500; } .mockbar nav { margin-left:auto; display:flex; flex-wrap:wrap; gap:2px; }
+    .mockbar a { color:#A7A9B0; text-decoration:none; padding:4px 10px; border-radius:6px; } .mockbar a:hover { color:#fff; background:rgba(255,255,255,.1); }
+    .mockbar a[aria-current="page"] { color:#fff; background:rgba(255,255,255,.16); }
+    .doc-hero { background:var(--ink); color:#fff; padding:clamp(40px,6vw,72px) 0; }
+    .doc-hero img { height:24px; width:auto; margin-bottom:36px; }
+    .doc-hero h1 { margin:0 0 14px; color:#fff; font:700 clamp(34px,5vw,56px)/1.06 var(--font-h); letter-spacing:-.02em; }
+    .doc-hero p { margin:0; max-width:64ch; color:rgba(255,255,255,.85); font-size:18px; }
+    .doc-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
+    .doc-links a { display:inline-flex; align-items:center; padding:12px 20px; border-radius:999px; background:#fff; color:var(--ink); font-weight:600; font-size:15px; text-decoration:none; }
+    .doc-links a.ghost { background:transparent; color:#fff; border:1px solid rgba(255,255,255,.4); }
+    main { padding:clamp(36px,5vw,56px) 0 100px; }
+    .toc { columns:2; column-gap:40px; margin:0; padding:22px 26px; border:1px solid var(--line); border-radius:var(--r); background:var(--sand); }
+    .toc a { display:block; padding:5px 0; color:var(--ink); text-decoration:none; break-inside:avoid; } .toc a:hover { text-decoration:underline; }
+    .toc a span { display:inline-block; min-width:30px; color:var(--red); font-weight:700; }
+    @media (max-width:640px) { .toc { columns:1; } }
+    section.doc { padding-top:clamp(40px,5vw,60px); }
+    h2 { margin:0 0 18px; padding-top:26px; border-top:1px solid var(--line); color:var(--ink); font:700 clamp(26px,3.2vw,36px)/1.2 var(--font-h); letter-spacing:-.02em; }
+    h2 .nr { margin-right:12px; color:var(--red); }
+    h3 { margin:32px 0 12px; color:var(--ink); font:700 clamp(18px,1.8vw,21px)/1.3 var(--font-h); }
+    p { margin:0 0 14px; max-width:76ch; } ol, ul { margin:0 0 16px; padding-left:22px; } li { margin-bottom:7px; max-width:74ch; }
+    b { color:var(--ink); font-weight:600; }
+    .table-wrap { overflow-x:auto; margin:14px 0 24px; border:1px solid var(--line); border-radius:var(--r); }
+    table { width:100%; min-width:640px; border-collapse:collapse; background:#fff; font-size:15px; line-height:1.55; }
+    th { background:var(--sand); color:var(--ink); font-weight:600; text-align:left; white-space:nowrap; }
+    th, td { padding:11px 14px; border-bottom:1px solid var(--line); vertical-align:top; } tr:last-child td { border-bottom:0; }
+    code { padding:1px 6px; border:1px solid var(--line); border-radius:6px; background:var(--sand); color:var(--ink); font:400 .84em/1.5 var(--mono); overflow-wrap:anywhere; }
+    .code { position:relative; margin:12px 0 24px; }
+    .code::before { content:attr(data-lang); position:absolute; top:10px; left:16px; color:#8E9096; font:500 11.5px/1 var(--mono); letter-spacing:.04em; }
+    .code pre { margin:0; padding:36px 20px 18px; max-height:600px; overflow:auto; border-radius:var(--r); background:#141518; color:#E6E7EA; font:400 13.5px/1.65 var(--mono); tab-size:2; }
+    .code pre code { padding:0; border:0; background:none; color:inherit; font:inherit; }
+    .note { padding:14px 18px; border:1px solid #F3C7C3; border-left:4px solid var(--red); border-radius:var(--r); background:#FDF1F0; max-width:none; }
+    .tip { padding:14px 18px; border:1px solid #CFE0EC; border-left:4px solid var(--sea); border-radius:var(--r); background:#EEF5FA; max-width:none; }
+    .spec { margin:12px 0 24px; padding:20px 22px 12px; border:1px solid var(--line); border-radius:var(--r); }
+    .spec .tag { display:inline-block; margin:0 0 14px; padding:4px 10px; border-radius:6px; background:var(--sand); color:var(--ink); font-size:13.5px; font-weight:600; }
+    .spec-row { display:grid; grid-template-columns:170px 1fr; gap:6px 20px; padding:10px 0; border-top:1px solid var(--line); }
+    .spec-row:first-of-type { border-top:0; padding-top:0; } .spec dt { color:var(--ink); font-weight:600; } .spec dd { margin:0; } .spec dl { margin:0; }
+    @media (max-width:640px) { .spec-row { grid-template-columns:1fr; } }
+    .swatches { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px; margin:12px 0 18px; }
+    .swatch { overflow:hidden; border:1px solid var(--line); border-radius:var(--r); } .swatch i { display:block; height:56px; border-bottom:1px solid var(--line); }
+    .swatch div { padding:10px 14px 12px; font-size:14px; line-height:1.5; } .swatch b, .swatch span { display:block; } .swatch span { margin-top:4px; color:var(--muted); }
+    .check { padding-left:0; } .check li { position:relative; padding-left:32px; list-style:none; }
+    .check li::before { content:""; position:absolute; left:0; top:4px; width:18px; height:18px; border:2px solid var(--ink); border-radius:5px; }
+    footer { padding:28px 0; border-top:1px solid var(--line); color:var(--muted); font-size:14px; }
+  </style>
+</head>
+<body>
+  <div class="mockbar"><div class="wrap"><span><strong>Dizaino maketas</strong> · realstory.lt · Salient tema</span>
+    <nav><a href="index.html">Pradžia</a><a href="pasiulymai.html">Pasiūlymai</a><a href="objektas.html">Objektas</a><a href="komanda.html">Komanda</a><a href="straipsniai.html">Straipsniai</a><a href="kontaktai.html">Kontaktai</a><a href="salient-gidas.html" aria-current="page">Salient gidas</a></nav></div></div>
+
+  <header class="doc-hero"><div class="wrap">
+    <img src="assets/img/logo-white.svg" alt="Real Story">
+    <h1>Salient įgyvendinimo gidas</h1>
+    <p>Kaip naują realstory.lt dizainą perkelti į WordPress su Salient tema: temos nustatymai, sekcijų struktūra, objektų katalogas, užklausos forma, mobilioji versija ir papildomas CSS.</p>
+    <div class="doc-links"><a href="index.html">Žiūrėti maketą</a><a class="ghost" href="README.md">README</a></div>
+  </div></header>
+
+  <main class="wrap">
+    <nav class="toc" aria-label="Turinys">
+      <a href="#kryptis"><span>1</span>Dizaino kryptis ir Salient atitikmenys</a>
+      <a href="#diegimas"><span>2</span>Diegimas ir įskiepiai</a>
+      <a href="#nustatymai"><span>3</span>Temos nustatymai (spalvos, šriftai, mygtukai)</a>
+      <a href="#antraste"><span>4</span>Antraštė, mobilus meniu ir lipni CTA juosta</a>
+      <a href="#pradzia"><span>5</span>Pradžios puslapis sekcija po sekcijos</a>
+      <a href="#objektai"><span>6</span>Objektų katalogas ir objekto puslapis</a>
+      <a href="#forma"><span>7</span>Užklausos forma ir konversijų sekimas</a>
+      <a href="#kiti"><span>8</span>Komanda, straipsniai, kontaktai</a>
+      <a href="#css"><span>9</span>Papildomas CSS</a>
+      <a href="#mobile"><span>10</span>Mobilioji versija ir greitis</a>
+      <a href="#klientas"><span>11</span>Patikslinti su klientu</a>
+      <a href="#failai"><span>12</span>Failai ir nuotraukos</a>
+      <a href="#v2"><span>13</span>V2: tamsi versija ir jos efektai Salient temoje</a>
+    </nav>
+
+    <section class="doc" id="kryptis"><h2><span class="nr">1</span>Dizaino kryptis ir Salient atitikmenys</h2>
+      <p>Maketas remiasi dabartine <a href="https://themenectar.com/salient/">Salient</a> vizualine kalba: įtrauktas (inset) suapvalintas hero blokas, baltas fonas su šilta pilkšva antrinių sekcijų spalva, didelė „Plus Jakarta Sans“ tipografija, pilnai suapvalinti mygtukai, kortelės su 20 px kampais, daug oro ir švelnios įėjimo animacijos. Prekės ženklo spalvos paliktos iš esamo logotipo – juoda ir raudonas taškas; raudona naudojama tik veiksmams (CTA, žymos, aktyvios būsenos), todėl ji visada matoma.</p>
+      <p>Kiekviena maketo sekcija turi atitikmenį Salient / WPBakery elementuose, kad svetainę būtų galima surinkti be papildomo programavimo. Kur Salient elementas neatkartoja detalės 1:1, gide pateiktas trumpas CSS.</p>
+      <div class="table-wrap"><table><thead><tr><th>Maketo elementas</th><th>Salient / WPBakery atitikmuo</th></tr></thead><tbody>
+        <tr><td>Įtrauktas hero blokas su nuotrauka ir forma</td><td>Row (Full width, „Constrain content“ išjungta) → Column su fono nuotrauka, <b>Column Border Radius</b> 28 px, tamsus <b>Overlay</b> gradientas; dešinėje Column su baltu fonu ir CF7 forma</td></tr>
+        <tr><td>Antraštės „akis“ su raudonu tašku</td><td>Text elementas su klase <code>eyebrow</code> (CSS 9 skyriuje)</td></tr>
+        <tr><td>Vertės kortelės su ikona</td><td><b>Fancy Box</b> („Icon left“ / „Minimal“) arba <b>Icon With Text</b></td></tr>
+        <tr><td>Skaičiai 200+, 17, 2, 3 d.</td><td><b>Milestone</b> (4 vnt.), fonas per Column background</td></tr>
+        <tr><td>Objektų kortelės su kaina ir žymomis</td><td><b>Portfolio</b> elementas („Meta below“ stilius) + ACF laukai; žr. 6 skyrių</td></tr>
+        <tr><td>Regionų kortelės su nuotrauka</td><td>2× <b>Fancy Box</b> („Hover desc“ arba „Parallax hover“) su fono nuotrauka</td></tr>
+        <tr><td>7 pirkimo žingsniai</td><td>Row su 4 kolonomis × 2 eilės; kiekviena – Fancy Box „Minimal“ (skaičius + tekstas); paskutinė – tamsi Column su Button</td></tr>
+        <tr><td>Video</td><td><b>Video Lightbox</b> (YouTube ID <code>f6iz8lrJmQQ</code>) su pasirinkta nuotrauka</td></tr>
+        <tr><td>Atsiliepimų slinkiklis</td><td><b>Testimonial Slider</b> („Minimal“ / „Multiple visible“, autorotate išjungtas)</td></tr>
+        <tr><td>Komandos kortelės</td><td><b>Team Member</b> („Modern“ stilius) arba Image + Text</td></tr>
+        <tr><td>Straipsniai</td><td><b>Recent Posts</b> („Grid“, 3 įrašai, kategorija „Straipsniai“)</td></tr>
+        <tr><td>DUK akordeonas</td><td><b>Toggle Panels</b> („Minimal“, pirma atidaryta)</td></tr>
+        <tr><td>Kontaktų sekcija su forma kiekviename puslapyje</td><td><b>Global Section</b>, priskirta hook’ui „Before Footer“</td></tr>
+        <tr><td>Lipni CTA juosta mobiliesiems</td><td><b>Global Section</b> „After Footer“ + CSS (9 skyrius)</td></tr>
+        <tr><td>Įėjimo animacijos</td><td>Column → <b>Animation</b> „Fade In From Bottom“, delay 0/100/200 ms</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="doc" id="diegimas"><h2><span class="nr">2</span>Diegimas ir įskiepiai</h2>
+      <ol>
+        <li>Įdiekite <b>Salient</b> ir jo siūlomus įskiepius: <b>Salient Core</b>, <b>Salient WPBakery Page Builder</b>, <b>Salient Portfolio</b> (objektų katalogui), <b>Salient Social</b> (nebūtina). Nectar Slider ir Salient Demo Importer nereikalingi.</li>
+        <li>Aktyvuokite <b>Salient Child</b> temą – į ją keliamas papildomas CSS ir keli PHP fragmentai.</li>
+        <li>Įskiepiai: <b>Contact Form 7</b> (arba WPForms Lite) formoms, <b>Flamingo</b> (užklausų archyvas WP administravime), <b>Advanced Custom Fields</b> (objektų laukai), <b>WP All Import</b> (vienkartiniam 69 objektų importui iš JSON), <b>CookieYes</b> (jau naudojamas), SEO įskiepis (Rank Math arba Yoast), vaizdų optimizavimas (ShortPixel / Imagify – WebP).</li>
+        <li>Elementor iš senosios svetainės išjunkite tik po turinio perkėlimo – iki tol jis reikalingas seniems puslapiams skaityti.</li>
+      </ol>
+      <p class="note"><b>Svarbu.</b> Dabartinė svetainė naudoja savo temą su įrašų tipu <code>istorija</code> (objektai) ir kategorija <code>straipsniai</code>. Nauja svetainė turi išsaugoti esamus URL: <code>/istorija/…/</code> objektams ir <code>/kategorija/straipsniai/</code>. Salient Portfolio įrašų tipo slug keičiamas į <code>istorija</code> (Salient → Portfolio settings → „Portfolio slug“), o straipsnių kategorija lieka ta pati.</p>
+    </section>
+
+    <section class="doc" id="nustatymai"><h2><span class="nr">3</span>Temos nustatymai (Salient → Theme Options)</h2>
+      <h3>3.1 Spalvos (General Settings → Color Scheme → Custom)</h3>
+      <div class="swatches">
+        <div class="swatch"><i style="background:#E2231A"></i><div><b>Accent Color · #E2231A</b><span>mygtukai, žymos, aktyvios būsenos</span></div></div>
+        <div class="swatch"><i style="background:#111114"></i><div><b>Extra Color 1 · #111114</b><span>tamsios sekcijos, poraštė, tekstas</span></div></div>
+        <div class="swatch"><i style="background:#F6F3EE"></i><div><b>Extra Color 2 · #F6F3EE</b><span>antrinių sekcijų fonas</span></div></div>
+        <div class="swatch"><i style="background:#0F5C8A"></i><div><b>Extra Color 3 · #0F5C8A</b><span>informaciniai blokai, fokusas</span></div></div>
+        <div class="swatch"><i style="background:#E4DFD7"></i><div><b>Linijos · #E4DFD7</b><span>kortelių ir laukelių rėmeliai</span></div></div>
+        <div class="swatch"><i style="background:#3C3E45"></i><div><b>Body text · #3C3E45</b><span>pastraipos</span></div></div>
+      </div>
+      <h3>3.2 Tipografija (Typography)</h3>
+      <div class="table-wrap"><table><thead><tr><th>Elementas</th><th>Šriftas</th><th>Dydis / storis</th></tr></thead><tbody>
+        <tr><td>Body</td><td>Inter (Google)</td><td>17 px (mobile 16), line-height 1.7, 400</td></tr>
+        <tr><td>H1</td><td>Plus Jakarta Sans</td><td>68 px desktop / 36 px mobile, 700, letter-spacing −0.02em, line-height 1.04</td></tr>
+        <tr><td>H2</td><td>Plus Jakarta Sans</td><td>50 / 30 px, 700, line-height 1.08</td></tr>
+        <tr><td>H3</td><td>Plus Jakarta Sans</td><td>28 / 22 px, 700</td></tr>
+        <tr><td>Navigacija</td><td>Inter</td><td>15.5 px, 500</td></tr>
+        <tr><td>Mygtukai</td><td>Inter</td><td>16 px, 600</td></tr>
+      </tbody></table></div>
+      <h3>3.3 Kiti nustatymai</h3>
+      <ul>
+        <li><b>General Settings → Functionality:</b> Button style „Rounded“ (999 px – papildomas CSS), Form style „Minimal“, Page transitions išjungta.</li>
+        <li><b>Header Navigation:</b> žr. 4 skyrių.</li>
+        <li><b>Footer:</b> 4 kolonos, fonas #111114, tekstas rgba(255,255,255,.72); Copyright: „© 2026 Real Story. Visos teisės saugomos.“; papildoma nuoroda į privatumo politiką.</li>
+        <li><b>Portfolio:</b> slug <code>istorija</code>, „Portfolio single project layout“ – Custom (žr. 6.3).</li>
+        <li><b>Blog:</b> Standard / „Featured image ratio 4:3“, kategorija <code>straipsniai</code> lieka.</li>
+      </ul>
+    </section>
+
+    <section class="doc" id="antraste"><h2><span class="nr">4</span>Antraštė, mobilus meniu ir lipni CTA juosta</h2>
+      <div class="spec"><span class="tag">Salient → Header Navigation</span><dl>
+        <div class="spec-row"><dt>Layout</dt><dd>Standard, „Menu right aligned“ (logotipas kairėje). Logotipas: <code>assets/img/logo-dark.svg</code>, aukštis 22 px; tamsiam meniu – <code>logo-white.svg</code>.</dd></div>
+        <div class="spec-row"><dt>Color scheme</dt><dd>Light, fonas balta su 86 % permatomumu (CSS <code>backdrop-filter</code> 9 skyriuje). „Header resize on scroll“ įjungta, „Transparent header“ išjungta.</dd></div>
+        <div class="spec-row"><dt>Meniu</dt><dd>NT pasiūlymai · Kaip vyksta pirkimas (<code>/#procesas</code>) · Komanda · Straipsniai · Kontaktai. Dešinėje: telefonas su ikona (meniu punktas su klase <code>header-phone</code>) ir mygtukas „Gauti pasiūlymą“ (meniu punkto „Button style“ nustatymas → Accent color, nuoroda <code>#kontaktai</code>).</dd></div>
+        <div class="spec-row"><dt>Mobile</dt><dd>Mobile menu style „Full screen“, tamsus fonas #111114, dideli meniu punktai. Į mobilųjį meniu apačioje pridėti du mygtukus (Header Navigation → Mobile → „Extra items“ arba per <code>wp_nav_menu_items</code> filtrą): raudonas „Gauti asmeninį pasiūlymą“ ir stiklinis „+370 615 10548“ (<code>tel:</code>).</dd></div>
+        <div class="spec-row"><dt>Lipni CTA juosta</dt><dd>Global Section „After Footer“ su Raw HTML: <code>&lt;div class="sticky-cta"&gt;&lt;a class="btn btn--ghost" href="tel:+37061510548"&gt;Skambinti&lt;/a&gt;&lt;a class="btn btn--red" href="#kontaktai"&gt;Gauti pasiūlymą&lt;/a&gt;&lt;/div&gt;</code>. Rodoma tik iki 1024 px (CSS). Makete juosta pasislepia, kai ekrane matoma kontaktų forma – WordPress’e užtenka paprasto CSS be šios logikos.</dd></div>
+      </dl></div>
+    </section>
+
+    <section class="doc" id="pradzia"><h2><span class="nr">5</span>Pradžios puslapis sekcija po sekcijos</h2>
+      <p>Visi tekstai yra makete (<code>_body/index.html</code>), čia – tik struktūra ir nustatymai. Kiekviena sekcija yra atskira WPBakery eilutė (Row).</p>
+
+      <div class="spec"><span class="tag">1. Hero</span><dl>
+        <div class="spec-row"><dt>Row</dt><dd>Full width, padding 12 px iš visų pusių (kad blokas būtų „įtrauktas“), be vidinio container. Column: fono nuotrauka <code>assets/img/Screenshot-2024-07-23-at-3.16.08-PM.jpg</code> (vila su baseinu, iš esamos svetainės), Border radius 28 px, Overlay: gradientas nuo rgba(10,10,12,.28) viršuje iki rgba(10,10,12,.72) apačioje, min. aukštis 100vh − antraštė (bet ne daugiau 860 px), turinys lygiuojamas apačioje.</dd></div>
+        <div class="spec-row"><dt>Kairė kolona (7/12)</dt><dd>Eyebrow „NT Ispanijoje · Marbela ir Alikantė“, H1 „Gyvenkite lyg atostogautumėte. Jūsų nauji namai Ispanijoje.“, pastraipa, du mygtukai (Accent „Gauti asmeninį pasiūlymą“ → <code>#kontaktai</code>; „Peržiūrėti objektus“ – permatomas su baltu rėmeliu → <code>/pasiulymai/</code>), pasitikėjimo eilutė su 4 ikonomis (Icon list, inline).</dd></div>
+        <div class="spec-row"><dt>Dešinė kolona (5/12, maks. 440 px)</dt><dd>Baltas fonas, radius 20 px, šešėlis; H3 „Gauti pasiūlymą per 3 dienas“, trumpa CF7 forma: Vardas, Telefonas, Biudžetas (select), mygtukas „Gauti pasiūlymą“, pastaba apie privatumo politiką. Mobiliesiems kolona nusileidžia po tekstu ir lieka hero bloke.</dd></div>
+      </dl></div>
+
+      <div class="spec"><span class="tag">2. Kodėl Real Story</span><dl>
+        <div class="spec-row"><dt>Row</dt><dd>2 kolonos (5/12 + 7/12), tarpas 64–96 px. Kairė kolona „sticky“ (Column → Sticky; jei versija nepalaiko – praleisti).</dd></div>
+        <div class="spec-row"><dt>Kairė</dt><dd>Eyebrow, H2, pastraipa, Icon list su 5 punktais (varnelės juodame apskritime), mygtukas „Susipažinkite su komanda“ (rėmelis).</dd></div>
+        <div class="spec-row"><dt>Dešinė</dt><dd>3× Fancy Box „Icon left“ (ikonos: handshake, shield-check, sparkle iš Salient „Linea“ arba Iconsmind rinkinio), po jų 4× Milestone 2×2 tinklelyje su fonu #F6F3EE.</dd></div>
+      </dl></div>
+
+      <div class="spec"><span class="tag">3. Pasiūlymai (skirtukai)</span><dl>
+        <div class="spec-row"><dt>Row</dt><dd>Fonas #F6F3EE. Antraštė kairėje, skirtukai dešinėje: <b>Tabbed Section</b> („Minimal“ stilius) su dviem skirtukais: „Karšti pasiūlymai“ ir „Nauji kompleksai“.</dd></div>
+        <div class="spec-row"><dt>Skirtuko turinys</dt><dd>Portfolio elementas: kategorija (karsti / nauji), 6 įrašai, 3 stulpeliai, stilius „Meta below“, be filtrų; po juo mygtukas „Visi karšti pasiūlymai“ → <code>/pasiulymai/?tipas=karstas</code>.</dd></div>
+      </dl></div>
+
+      <div class="spec"><span class="tag">4. Regionai</span><dl>
+        <div class="spec-row"><dt>Row</dt><dd>2 kolonos, kiekvienoje Fancy Box „Hover desc“ su fono nuotrauka (Marbela: <code>assets/img/pexels/pexels-15474686.jpg</code>; Alikantė: <code>assets/img/nt/1200-800-1671-d-1.jpg</code>), aukštis 440 px, radius 20 px, tamsus gradientas apačioje, 3 žymos (Raw HTML su klase <code>region__meta</code>). Nuoroda į <code>/pasiulymai/?regionas=…</code>.</dd></div>
+      </dl></div>
+
+      <div class="spec"><span class="tag">5. Kaip vyksta pirkimas (7 žingsniai)</span><dl>
+        <div class="spec-row"><dt>Row</dt><dd>ID <code>procesas</code>, fonas #F6F3EE, antraštė centre. 2 eilutės × 4 kolonos, kiekvienoje Fancy Box „Minimal“ su baltu fonu, radius 20 px: raudonas numeris (01–07), H3, tekstas. Aštunta kortelė – juoda kolona su H3 „Pradėkime nuo pirmo žingsnio“ ir Accent mygtuku „Registruotis konsultacijai“.</dd></div>
+        <div class="spec-row"><dt>Responsive</dt><dd>≤1100 px – 2 stulpeliai, ≤560 px – 1 stulpelis (Column „Responsive“ nustatymai).</dd></div>
+      </dl></div>
+
+      <div class="spec"><span class="tag">6. Video</span><dl>
+        <div class="spec-row"><dt>Row</dt><dd>2 kolonos (7/12 + 5/12). Kairėje Video Lightbox (YouTube <code>f6iz8lrJmQQ</code>) su nuotrauka <code>https://i.ytimg.com/vi/f6iz8lrJmQQ/maxresdefault.jpg</code> (parsisiųsti į medijos biblioteką), radius 28 px, mygtukas „Žiūrėti video“. Dešinėje eyebrow, H2, pastraipa, nuoroda su rodykle į YouTube kanalą.</dd></div>
+      </dl></div>
+
+      <div class="spec"><span class="tag">7. Atsiliepimai</span><dl>
+        <div class="spec-row"><dt>Row</dt><dd>Fonas #F6F3EE. Testimonial Slider „Multiple visible“ (3 desktop, 1 mobile), be autorotacijos, rodyklės dešinėje virš slinkiklio. 4 atsiliepimai iš esamos svetainės (Edita, Justina, Darius, Algirdas), 5 žvaigždutės raudonos, inicialų apskritimas vietoje nuotraukos.</dd></div>
+      </dl></div>
+
+      <div class="spec"><span class="tag">8. Komanda · 9. Straipsniai · 10. DUK · 11. CTA juosta</span><dl>
+        <div class="spec-row"><dt>Komanda</dt><dd>2× Team Member (Kristijonas, Daiva) su regionų žymomis ir Instagram nuoroda; nuoroda „Apie Real Story“ → <code>/komanda/</code>.</dd></div>
+        <div class="spec-row"><dt>Straipsniai</dt><dd>Recent Posts „Grid“, 3 naujausi iš kategorijos <code>straipsniai</code>, 4:3 nuotraukos, radius 20 px.</dd></div>
+        <div class="spec-row"><dt>DUK</dt><dd>Toggle Panels „Minimal“, 6 klausimai (tekstai makete), pirmas atidarytas, siauras container (860 px). FAQ schema per SEO įskiepį.</dd></div>
+        <div class="spec-row"><dt>CTA juosta</dt><dd>Row → Column su fonu #111114, radius 28 px, padding 48–72 px; H2 „Rezervuokite laiką nuotoliniam susitikimui“, du mygtukai (Accent + permatomas su rėmeliu). Raudonas švytėjimas kampe – CSS <code>.cta-band::after</code>.</dd></div>
+        <div class="spec-row"><dt>Kontaktai + forma</dt><dd>Global Section „Before Footer“ – žr. 7 skyrių. Rodoma visuose puslapiuose, todėl visos „#kontaktai“ nuorodos veikia bet kur.</dd></div>
+      </dl></div>
+    </section>
+
+    <section class="doc" id="objektai"><h2><span class="nr">6</span>Objektų katalogas ir objekto puslapis</h2>
+      <h3>6.1 Duomenų modelis</h3>
+      <p>Objektai – Salient Portfolio įrašai (slug <code>istorija</code>, kad išliktų esami URL). Kategorijos (Portfolio Categories): <b>Karšti pasiūlymai</b> (<code>karsti</code>), <b>Nauji kompleksai</b> (<code>nauji</code>), <b>Marbelos regionas</b> (<code>marbela</code>), <b>Alikantės regionas</b> (<code>alikante</code>). ACF laukų grupė „Objektas“:</p>
+      <div class="table-wrap"><table><thead><tr><th>Laukas</th><th>Tipas</th><th>Pavyzdys</th></tr></thead><tbody>
+        <tr><td><code>kaina</code></td><td>Number (EUR)</td><td>949000</td></tr>
+        <tr><td><code>plotas</code></td><td>Number (m²)</td><td>290</td></tr>
+        <tr><td><code>miegamieji</code></td><td>Number</td><td>5</td></tr>
+        <tr><td><code>vonios</code></td><td>Number</td><td>4</td></tr>
+        <tr><td><code>vietove</code></td><td>Text</td><td>Benalmadena</td></tr>
+        <tr><td><code>privalumai</code></td><td>Checkbox</td><td>Jūros vaizdas, Baseinas, Garažas, Terasa, Golfas…</td></tr>
+        <tr><td><code>galerija</code></td><td>Gallery</td><td>iki 20 nuotraukų</td></tr>
+      </tbody></table></div>
+      <p>Visų 69 dabartinių objektų duomenys (pavadinimas, tipas, regionas, plotas, kaina, miegamieji, nuotrauka, senas URL) yra faile <code>_data/objektai.json</code> – jį galima importuoti su WP All Import arba perkelti tiesiai iš senos DB (<code>istorija</code> įrašai). Miegamųjų skaičius iš pavadinimų atpažintas 32-iems objektams; likusius reikės suvesti rankomis.</p>
+      <h3>6.2 Sąrašo puslapis /pasiulymai/</h3>
+      <p>Page header be nuotraukos (H1 „NT pasiūlymai Ispanijoje“ + įžanga). Portfolio elementas: visi įrašai, 3 stulpeliai, „Meta below“, filtrai įjungti (kategorijos veikia kaip skirtukai Visi / Karšti / Nauji ir regionai). Kainos ir miegamųjų filtrai pagal ACF laukus – per <b>FacetWP</b> arba <b>Search &amp; Filter Pro</b>; pirmoje versijoje užtenka kategorijų filtrų. URL parametrai <code>?tipas=karstas</code> ir <code>?regionas=marbela</code> iš pradžios puslapio turi iš karto aktyvuoti filtrą (FacetWP tai palaiko).</p>
+      <p>Kortelės turinys (Portfolio „Meta below“ šablonas, papildytas per <code>salient-portfolio</code> child template arba trumpu PHP filtru): nuotrauka 4:3 su žyma („Karštas pasiūlymas“ raudona / „Naujas kompleksas“ juoda), regionas su ikona, pavadinimas (2 eilutės), plotas · miegamieji · vonios, kaina paryškinta ir apskritimas su rodykle.</p>
+      <h3>6.3 Objekto puslapis</h3>
+      <p>Portfolio single – „Custom“ išdėstymas, kad puslapį būtų galima rinkti WPBakery arba naudoti vieną child temos šabloną <code>single-portfolio.php</code>:</p>
+      <ol>
+        <li>Naršymo kelias, žymos, H1, faktų juosta (kaina, m², miegamieji, vonios, privalumai) – ACF laukai.</li>
+        <li>Galerija: pagrindinė nuotrauka + 4 miniatiūros dešinėje (Image Gallery „Grid“ + lightbox), mobiliesiems – 1 didelė + „Visos 20 nuotraukų“.</li>
+        <li>2 kolonos: aprašymas (įrašo turinys) ir lipni šoninė kortelė (Column → Sticky) su kaina, tekstu „Sudomino šis objektas?“, mygtukais „Registruotis konsultacijai“ (<code>#kontaktai</code>), telefonu, WhatsApp ir agento kortele.</li>
+        <li>„Panašūs objektai“ – Portfolio „Related items“ (3, ta pati kategorija).</li>
+      </ol>
+      <p class="tip"><b>Patarimas.</b> Objekto formoje į paslėptą lauką įrašykite objekto pavadinimą (CF7 <code>[hidden objektas default:get]</code> arba per JS), kad užklausoje matytųsi, dėl ko klientas kreipėsi.</p>
+    </section>
+
+    <section class="doc" id="forma"><h2><span class="nr">7</span>Užklausos forma ir konversijų sekimas</h2>
+      <p>Svetainė pardaviminė, todėl forma pasiekiama iš bet kurios vietos: hero bloke (trumpa), kontaktų sekcijoje kiekvieno puslapio apačioje (pilna), objekto puslapio šoninėje kortelėje ir lipnioje mobiliojoje juostoje. Visos „Gauti pasiūlymą“ nuorodos veda į <code>#kontaktai</code>.</p>
+      <h3>7.1 Contact Form 7 – pilna forma</h3>
+      <div class="code" data-lang="CF7"><pre><code>&lt;div class="form-grid"&gt;
+  &lt;div class="field"&gt;&lt;label&gt;Vardas, pavardė [text* name autocomplete:name]&lt;/label&gt;&lt;/div&gt;
+  &lt;div class="field"&gt;&lt;label&gt;Telefono numeris [tel* phone placeholder "+370"]&lt;/label&gt;&lt;/div&gt;
+  &lt;div class="field field--full"&gt;&lt;label&gt;El. paštas [email* email]&lt;/label&gt;&lt;/div&gt;
+  &lt;div class="field"&gt;&lt;label&gt;Biudžetas [select budget first_as_label "Pasirinkite" "iki 250 000 €" "250–400 tūkst. €" "400–700 tūkst. €" "nuo 700 tūkst. €"]&lt;/label&gt;&lt;/div&gt;
+  &lt;div class="field"&gt;&lt;label&gt;Objekto tipas [select type first_as_label "Pasirinkite" "Butas / apartamentai" "Penthauzas" "Vila / namas" "Investicinis objektas" "Dar nežinau"]&lt;/label&gt;&lt;/div&gt;
+  &lt;div class="field"&gt;&lt;label&gt;Miegamųjų skaičius [select rooms first_as_label "Pasirinkite" "1" "2" "3" "4+"]&lt;/label&gt;&lt;/div&gt;
+  &lt;div class="field"&gt;&lt;label&gt;Regionas [select region first_as_label "Pasirinkite" "Marbelos regionas (Costa del Sol)" "Alikantės regionas (Costa Blanca)" "Nesvarbu"]&lt;/label&gt;&lt;/div&gt;
+  &lt;div class="field field--full"&gt;&lt;label&gt;Jūsų žinutė (neprivaloma) [textarea message placeholder "Pvz.: ieškome 2 miegamųjų buto prie jūros atostogoms ir nuomai"]&lt;/label&gt;&lt;/div&gt;
+  &lt;div class="field field--full check"&gt;[acceptance privacy] Perskaičiau ir sutinku su &lt;a href="/privatumo-politika/"&gt;privatumo politika&lt;/a&gt; [/acceptance]&lt;/div&gt;
+  [hidden objektas default:get]
+  [hidden saltinis default:get]
+  &lt;div class="field field--full"&gt;[submit class:btn class:btn--red class:btn--lg class:btn--block "Siųsti užklausą"]&lt;/div&gt;
+&lt;/div&gt;</code></pre></div>
+      <p>Trumpa hero forma: <code>[text* name placeholder "Vardas"]</code>, <code>[tel* phone placeholder "Telefonas"]</code>, <code>[select budget …]</code>, <code>[submit "Gauti pasiūlymą"]</code>. Laiškai – į <code>info@realstory.lt</code>, kopija Kristijonui; siuntimui naudoti SMTP įskiepį (WP Mail SMTP), kad laiškai nekristų į šlamštą. Antispam: CF7 reCAPTCHA v3 arba „Honeypot for CF7“ (be vartotojui matomų iššūkių).</p>
+      <h3>7.2 Konversijų sekimas</h3>
+      <ul>
+        <li>GA4 įvykiai: <code>generate_lead</code> po CF7 <code>wpcf7mailsent</code> įvykio (su <code>form_id</code> ir <code>objektas</code> parametrais), <code>click_phone</code> visoms <code>tel:</code> nuorodoms, <code>click_whatsapp</code> – <code>wa.me</code> nuorodoms.</li>
+        <li>Meta Pixel „Lead“ ta pačia logika – per GTM.</li>
+        <li>Po sėkmingo išsiuntimo rodyti padėkos žinutę formos vietoje (CF7 numatyta) – maketas rodo pavyzdį.</li>
+      </ul>
+    </section>
+
+    <section class="doc" id="kiti"><h2><span class="nr">8</span>Komanda, straipsniai, kontaktai</h2>
+      <ul>
+        <li><b>/komanda/</b> – Page header su H1 „O kokia Real Story istorija?“ ir įžanga; nuotrauka per visą plotį 21:9 (radius 28 px); dvi Row po 2 kolonas (nuotrauka 4:5 + tekstas), antra „reverse“; Daivai – 3 Milestone (21 / 17 / 200+); CTA juosta.</li>
+        <li><b>/kategorija/straipsniai/</b> – Blog archive: Salient „Standard grid“ 3 stulpeliai, nuotraukos 4:3, kategorijos etiketė virš pavadinimo. Naujus straipsnius rašyti kaip įprastus WordPress įrašus.</li>
+        <li><b>/kontaktai/</b> – H1, 4 kontaktų kortelės (Fancy Box „Icon left“), Google Maps įterpimas (Puerto Banús), po jo bendra kontaktų sekcija su forma (Global Section).</li>
+        <li><b>Poraštė</b> – 4 kolonos: aprašymas + socialiniai tinklai, Pasiūlymai, Apie, Kontaktai; apačioje autorinės teisės ir privatumo politika.</li>
+      </ul>
+    </section>
+
+    <section class="doc" id="css"><h2><span class="nr">9</span>Papildomas CSS</h2>
+      <p>Įkelti į Salient → General Settings → CSS/Script Related → Custom CSS arba į Salient Child <code>style.css</code>. Tai – pagrindinės detalės, kurių Salient nustatymai neatkartoja; pilnas maketo CSS yra faile <code>assets/css/style.css</code>, iš jo galima kopijuoti bet kurį komponentą (kortelės, žymos, žingsniai, formos laukeliai).</p>
+      <div class="code" data-lang="CSS"><pre><code>:root { --ink:#111114; --sand:#F6F3EE; --line:#E4DFD7; --red:#E2231A; --red-dark:#BF1B13; --muted:#6F727A; }
+
+/* Antraštė: permatoma su suliejimu, šešėlis paslinkus */
+#header-outer { background: rgba(255,255,255,.86) !important; backdrop-filter: saturate(160%) blur(14px); -webkit-backdrop-filter: saturate(160%) blur(14px); }
+#header-outer.scrolled { box-shadow: 0 8px 30px -20px rgba(17,17,20,.25); border-bottom: 1px solid var(--line); }
+#header-outer .sf-menu &gt; li &gt; a { border-radius: 999px; padding: 10px 14px !important; }
+#header-outer .sf-menu &gt; li &gt; a:hover { background: var(--sand); }
+#header-outer .sf-menu li.header-phone a::before { content: "\e95e"; font-family: "Salient Icons"; margin-right: 6px; } /* arba SVG ikona */
+
+/* Mygtukai – pilnai suapvalinti */
+.nectar-button, .wpcf7-submit { border-radius: 999px !important; font-weight: 600; min-height: 52px; transition: transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s; }
+.nectar-button:hover { transform: translateY(-2px); box-shadow: 0 18px 32px -16px rgba(17,17,20,.45); }
+
+/* Antraštės „akis“ su raudonu tašku */
+.eyebrow { display:inline-flex; align-items:center; gap:10px; margin-bottom:18px; color:var(--ink); font:600 13px/1 "Inter",sans-serif; letter-spacing:.08em; text-transform:uppercase; }
+.eyebrow::before { content:""; width:9px; height:9px; border-radius:50%; background:var(--red); }
+.eyebrow--light { color: rgba(255,255,255,.85); }
+
+/* Kortelės (Fancy Box, Portfolio, Toggle) */
+.nectar-fancy-box, .portfolio-items .col .inner-wrap, .toggle { border-radius: 20px !important; overflow: hidden; border: 1px solid var(--line); }
+.portfolio-items .col .inner-wrap { transition: transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s; }
+.portfolio-items .col:hover .inner-wrap { transform: translateY(-4px); box-shadow: 0 30px 60px -24px rgba(17,17,20,.28); }
+.badge { display:inline-flex; align-items:center; gap:6px; padding:6px 11px; border-radius:999px; background:rgba(255,255,255,.92); color:var(--ink); font:600 12.5px/1 "Inter",sans-serif; }
+.badge--red { background:var(--red); color:#fff; } .badge--ink { background:var(--ink); color:#fff; }
+.card__price { font:700 20px/1 "Plus Jakarta Sans",sans-serif; letter-spacing:-.02em; color:var(--ink); }
+
+/* Formos laukeliai */
+.wpcf7 input:not([type=submit]):not([type=checkbox]), .wpcf7 select, .wpcf7 textarea { min-height:50px; padding:12px 16px; border:1px solid var(--line); border-radius:14px; background:#fff; font-size:16px; }
+.wpcf7 input:focus, .wpcf7 select:focus, .wpcf7 textarea:focus { border-color: var(--ink); box-shadow: 0 0 0 4px rgba(17,17,20,.08); outline: none; }
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; } .form-grid .field--full { grid-column:1 / -1; }
+@media (max-width:560px) { .form-grid { grid-template-columns:1fr; } }
+.wpcf7 .field label { display:grid; gap:6px; font-size:14px; font-weight:600; color:var(--ink); }
+
+/* Tamsi CTA juosta */
+.cta-band { position:relative; overflow:hidden; border-radius:28px; background:var(--ink); color:#fff; }
+.cta-band::after { content:""; position:absolute; right:-120px; top:-120px; width:380px; height:380px; border-radius:50%; background:radial-gradient(circle, rgba(226,35,26,.55), transparent 65%); }
+
+/* Lipni CTA juosta mobiliesiems (Global Section „After Footer“) */
+.sticky-cta { display:none; }
+@media (max-width:1024px) {
+  .sticky-cta { position:fixed; left:0; right:0; bottom:0; z-index:9999; display:grid; grid-template-columns:1fr 1.6fr; gap:8px; padding:10px 16px calc(10px + env(safe-area-inset-bottom)); background:rgba(255,255,255,.94); border-top:1px solid var(--line); backdrop-filter:blur(12px); }
+  .sticky-cta a { display:inline-flex; align-items:center; justify-content:center; min-height:50px; border-radius:999px; font:600 15px/1 "Inter",sans-serif; text-decoration:none; }
+  .sticky-cta .btn--ghost { border:1px solid var(--line); color:var(--ink); } .sticky-cta .btn--red { background:var(--red); color:#fff; }
+  body { padding-bottom: 76px; }
+}
+
+/* Judesio mažinimas */
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration:.01ms !important; animation-duration:.01ms !important; } }</code></pre></div>
+      <p class="note"><b>Pastaba.</b> Salient klasių pavadinimai (<code>#header-outer</code>, <code>.nectar-button</code>, <code>.portfolio-items</code>) skirtingose versijose gali šiek tiek skirtis – prieš keliant į gyvą svetainę patikrinkite naršyklės inspektoriuje.</p>
+    </section>
+
+    <section class="doc" id="mobile"><h2><span class="nr">10</span>Mobilioji versija ir greitis</h2>
+      <ul class="check">
+        <li>Visi paspaudžiami elementai ≥ 44 px aukščio; formos laukeliai 50 px, šriftas 16 px (iOS nepriartina).</li>
+        <li>Hero mobiliesiems: tekstas → du mygtukai per visą plotį → pasitikėjimo eilutė → forma tame pačiame bloke.</li>
+        <li>Lipni juosta „Skambinti / Gauti pasiūlymą“ iki 1024 px; poraštėje – <code>padding-bottom</code>, kad neuždengtų turinio.</li>
+        <li>Meniu pilno ekrano, su telefonu ir CTA apačioje; telefono ikona antraštėje šalia meniu mygtuko.</li>
+        <li>Objektų kortelės 1 stulpeliu, filtrai – horizontaliai slenkantys skirtukai + pasirinkimo laukai per visą plotį.</li>
+        <li>Nuotraukos: WebP, kortelėms 800 px pločio, hero 1920 px; Salient „Lazy load images“ įjungta; <code>fetchpriority="high"</code> hero nuotraukai.</li>
+        <li>Šriftai: tik Plus Jakarta Sans 600/700 ir Inter 400/500/600, <code>display=swap</code>, preconnect į fonts.gstatic.com.</li>
+        <li>Salient → Performance: išjungti nenaudojamus elementus (Nectar Slider, WooCommerce, Portfolio jei nenaudojamas), įjungti CSS/JS suskaidymą.</li>
+        <li>YouTube – tik paspaudus (Video Lightbox), ne automatinis iframe.</li>
+        <li>Tikslas: Lighthouse mobile Performance ≥ 85, LCP &lt; 2,5 s.</li>
+      </ul>
+    </section>
+
+    <section class="doc" id="klientas"><h2><span class="nr">11</span>Patikslinti su klientu</h2>
+      <ul class="check">
+        <li><b>Komandos nuotraukos.</b> Esamos Kristijono ir Daivos nuotraukos yra tik 252×202 px – naujam dizainui reikia bent 1200 px pločio vertikalių portretų.</li>
+        <li><b>Hero nuotrauka.</b> Makete naudota esamos svetainės vilos nuotrauka; jei yra savų aukštos raiškos nuotraukų ar video iš Marbelos – geriau.</li>
+        <li><b>Skaičiai.</b> „200+ klientų“ ir „17 metų“ paimti iš esamos svetainės tekstų – patvirtinti, ar rodyti pradžios puslapyje.</li>
+        <li><b>Darbo laikas</b> („9–19 val.“) ir WhatsApp numeris (+370 615 10548) – patvirtinti.</li>
+        <li><b>DUK atsakymai</b> apie mokesčius, paskolas ir paslaugų kainą – peržiūrėti teisiniu požiūriu; makete jie suformuluoti bendrai.</li>
+        <li><b>Objektų duomenys.</b> Trūksta miegamųjų skaičiaus 37-iems objektams; kai kurios kainos ir plotai atrodo neatnaujinti (pvz. 60 m² už 235 000 €). Pravartu peržiūrėti sąrašą prieš importą.</li>
+        <li><b>Straipsnis „Rekordinis turistų skaičius“</b> (esamas URL <code>/1607-2/</code>) – patvirtinti pavadinimą.</li>
+        <li><b>Adresas žemėlapiui</b> – Puerto Banús, ar rodyti konkretų ofisą.</li>
+        <li><b>Pexels nuotraukos</b> (regionai) – galima naudoti nemokamai, autoriai nurodyti <code>assets/img/pexels/ATTRIBUTION.md</code>.</li>
+      </ul>
+    </section>
+
+    <section class="doc" id="failai"><h2><span class="nr">12</span>Failai ir nuotraukos</h2>
+      <div class="table-wrap"><table><thead><tr><th>Failas / katalogas</th><th>Kas tai</th></tr></thead><tbody>
+        <tr><td><code>index.html</code>, <code>pasiulymai.html</code>, <code>objektas.html</code>, <code>komanda.html</code>, <code>straipsniai.html</code>, <code>kontaktai.html</code></td><td>Surinkti maketo puslapiai (atidaryti naršyklėje)</td></tr>
+        <tr><td><code>_parts/</code>, <code>_body/</code>, <code>build.py</code></td><td>Šaltiniai: antraštė/poraštė, puslapių turinys ir surinkimo skriptas (<code>python3 build.py</code>)</td></tr>
+        <tr><td><code>_data/objektai.json</code></td><td>69 objektų duomenys importui</td></tr>
+        <tr><td><code>assets/css/style.css</code>, <code>assets/js/main.js</code></td><td>Dizaino sistema ir interaktyvumas</td></tr>
+        <tr><td><code>assets/img/logo-dark.svg</code>, <code>logo-white.svg</code></td><td>Logotipas šviesiam ir tamsiam fonui (iš esamos svetainės)</td></tr>
+        <tr><td><code>assets/img/nt/</code></td><td>Objektų nuotraukos iš realstory.lt (69 vnt.)</td></tr>
+        <tr><td><code>assets/img/pexels/</code></td><td>Papildomos regionų nuotraukos iš Pexels + autoriai</td></tr>
+        <tr><td><code>assets/img/*.jpg</code></td><td>Hero, komandos ir straipsnių nuotraukos iš esamos svetainės</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="doc" id="v2"><h2><span class="nr">13</span>V2: tamsi versija ir jos efektai Salient temoje</h2>
+      <p>V2 (<a href="v2/index.html">v2/index.html</a>) naudoja tą patį turinį ir sekcijų eilę, bet kitą vizualinę kalbą: juodas fonas <code>#0A0A0C</code> pakaitomis su šviesia „paper“ <code>#F4F0E8</code> sekcija, ryškesnė raudona <code>#FF3B30</code>, itališkas serifas <b>Instrument Serif</b> akcentiniams žodžiams antraštėse, <b>Plus Jakarta Sans 800</b> antraštėms. Salient nustatymuose keičiasi: Accent color → #FF3B30, Body background → #0A0A0C, Header color scheme → Dark (transparent virš hero, „Header resize on scroll“ + tamsus fonas paslinkus), mygtukai – tie patys pilnai apvalūs.</p>
+      <div class="table-wrap"><table><thead><tr><th>V2 efektas</th><th>Kaip padaryti Salient</th></tr></thead><tbody>
+        <tr><td>Pilno ekrano hero su lėtu priartėjimu ir parallax</td><td>Row „Full screen“ + Column background <b>Parallax</b> (arba „Zoom on scroll“), Overlay gradientas iki juodos apačioje, kad sekcija susilietų su fonu</td></tr>
+        <tr><td>Antraštės, kurių žodžiai išnyra iš apačios</td><td><b>Split Line Heading</b> elementas (Salient), efektas „Slide up“, delay 45 ms tarp žodžių; akcentinis žodis – <code>&lt;span class="accent"&gt;</code> su CSS (itališkas serifas, raudona)</td></tr>
+        <tr><td>Raudona bėganti vietovių juosta ir serifinė proceso juosta</td><td><b>Text Marquee</b> elementas: tekstas su „✦“ skirtukais, greitis ~30 s, pauzė užvedus</td></tr>
+        <tr><td>Skaičių animacija hero ir statistikoje</td><td><b>Milestone</b> su „Count animation“, sufiksas „+“</td></tr>
+        <tr><td>Kortelės su raudonu „spotlight“ švytėjimu po pele</td><td>Fancy Box + 10 eilučių JS iš <code>assets/js/v2-effects.js</code> (spotlight blokas) į child temą; be JS kortelės lieka su hover pakilimu</td></tr>
+        <tr><td>Kontūriniai skaičiai 01–07, užsipildantys raudonai</td><td>Fancy Box su Raw HTML numeriu; CSS <code>-webkit-text-stroke</code> iš <code>v2.css</code> (<code>.step__nr</code>)</td></tr>
+        <tr><td>Video blokas, kuris didėja slenkant</td><td>Column → <b>Scroll animation</b> „Scale in“ (Salient 16+); makete – CSS <code>animation-timeline: view()</code> su atsarginiu variantu</td></tr>
+        <tr><td>Dvi kryptimis bėgantys atsiliepimai</td><td>Text Marquee su kortelėmis (Raw HTML) arba Testimonial Slider „Multiple visible“ su autorotate – paprastesnis variantas</td></tr>
+        <tr><td>Nespalvoti komandos portretai, spalvoti užvedus</td><td>Team Member + CSS <code>filter: grayscale(1)</code> / hover <code>none</code></td></tr>
+        <tr><td>Milžiniškas kontūrinis „real.story“ poraštėje</td><td>Raw HTML poraštės eilutėje su klase <code>footer-word</code> (CSS iš v2.css)</td></tr>
+        <tr><td>Magnetiniai mygtukai, pilno ekrano meniu su „circle“ atsidarymu</td><td>Neprivaloma: JS iš <code>v2-effects.js</code>; Salient mobile menu style „Full screen“ atitinka be animacijos</td></tr>
+        <tr><td>Tamsus permatomas formos blokas hero</td><td>Column su fonu rgba(16,16,20,.62) + <code>backdrop-filter</code> (custom CSS), CF7 laukai tamsūs – CSS iš v2.css (<code>.input</code>, <code>.select</code>)</td></tr>
+      </tbody></table></div>
+      <p class="tip"><b>Našumas.</b> V2 turi daugiau judesio, todėl svarbu: viskas gerbia <code>prefers-reduced-motion</code>, „blur-in“ atsiradimas veikia tik nuo 900 px, marquee sustoja užvedus pele. Lighthouse tikslas lieka tas pats (mobile ≥ 85).</p>
+    </section>
+  </main>
+  <footer><div class="wrap">Real Story dizaino maketas · parengta 2026-09-24 · Simplex.lt</div></footer>
+</body>
+</html>

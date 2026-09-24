@@ -1,0 +1,50 @@
+    <!-- PUSLAPIO ANTRAŠTĖ | Salient: Page header (tekstas kairėje), be fono nuotraukos -->
+    <section class="page-head">
+      <div class="container">
+        <nav class="breadcrumbs" aria-label="Naršymo kelias"><a href="index.html">Pradžia</a><span>/</span><span>NT pasiūlymai</span></nav>
+        <p class="eyebrow">Pasiūlymai</p>
+        <h1>NT pasiūlymai Ispanijoje</h1>
+        <p class="lead">Karščiausi objektai iš jau pastatytų projektų ir naujausi šiuo metu vystomi kompleksai regione nuo Malagos iki Gibraltaro bei Alikantės pakrantėje. Turime ir viešai neskelbiamų objektų – užpildykite užklausą ir atsiųsime.</p>
+      </div>
+    </section>
+
+    <!-- FILTRAI + OBJEKTAI | Salient: Portfolio elementas su „Filters“ (kategorijos: tipas, regionas) + Salient Portfolio sorting; kaina/miegamieji – custom laukai (ACF) -->
+    <section class="section section--tight" aria-label="Objektų sąrašas">
+      <div class="container">
+        <form class="filters" data-filters onsubmit="return false">
+          <div class="tabs" role="group" aria-label="Tipas">
+            <button type="button" data-type="visi" aria-selected="true">Visi</button>
+            <button type="button" data-type="karstas" aria-selected="false">Karšti pasiūlymai</button>
+            <button type="button" data-type="naujas" aria-selected="false">Nauji kompleksai</button>
+          </div>
+          <label class="sr-only" for="fl-region">Regionas</label>
+          <select class="select" id="fl-region" name="regionas"><option value="">Visi regionai</option><option value="marbela">Marbelos regionas</option><option value="alikante">Alikantės regionas</option></select>
+          <label class="sr-only" for="fl-price">Kaina</label>
+          <select class="select" id="fl-price" name="kaina"><option value="">Bet kokia kaina</option><option value="0-250000">iki 250 000 €</option><option value="250000-400000">250–400 tūkst. €</option><option value="400000-700000">400–700 tūkst. €</option><option value="700000-99999999">nuo 700 tūkst. €</option></select>
+          <label class="sr-only" for="fl-beds">Miegamieji</label>
+          <select class="select" id="fl-beds" name="miegamieji"><option value="">Miegamieji</option><option value="2">2</option><option value="3">3</option><option value="4">4+</option></select>
+          <span class="filters__count" data-count aria-live="polite"></span>
+          <button class="filters__reset" type="button" data-reset>Išvalyti</button>
+        </form>
+        <div class="cards mt-3">
+{{CARDS:visi}}
+        </div>
+        <div class="empty" data-empty>Pagal pasirinktus kriterijus objektų nėra. <a href="#kontaktai">Parašykite mums</a> – turime ir viešai neskelbiamų pasiūlymų.</div>
+      </div>
+    </section>
+
+    <section class="section section--tight" aria-labelledby="cta2-title">
+      <div class="container">
+        <div class="cta-band" data-reveal>
+          <div>
+            <p class="eyebrow eyebrow--light">Neradote tinkamo?</p>
+            <h2 id="cta2-title">Turime ir viešai neskelbiamų objektų</h2>
+            <p>Pasakykite, ko ieškote – per 3 dienas paruošime asmeninį pasiūlymų rinkinį pagal jūsų biudžetą, regioną ir tikslą.</p>
+          </div>
+          <div class="cta-band__actions">
+            <a class="btn btn--red btn--lg" href="#kontaktai">Atsiųsti man pasiūlymus</a>
+            <a class="btn btn--glass btn--lg" href="https://wa.me/37061510548"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </section>

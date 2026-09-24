@@ -1,0 +1,56 @@
+  <!-- ANTRAŠTĖ | Salient: Header layout „Menu right aligned“, Light scheme, Resize on scroll, mygtukas kaip meniu punktas -->
+  <header class="site-header" id="header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html" aria-label="Real Story, pradžia">
+        <img src="assets/img/logo-dark.svg" alt="Real Story" width="191" height="26">
+      </a>
+      <nav class="main-nav" aria-label="Pagrindinis meniu">
+        <ul>
+          <li><a href="pasiulymai.html" {{CUR:pasiulymai}}>NT pasiūlymai</a></li>
+          <li><a href="index.html#procesas">Kaip vyksta pirkimas</a></li>
+          <li><a href="komanda.html" {{CUR:komanda}}>Komanda</a></li>
+          <li><a href="straipsniai.html" {{CUR:straipsniai}}>Straipsniai</a></li>
+          <li><a href="kontaktai.html" {{CUR:kontaktai}}>Kontaktai</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a class="header-phone" href="tel:+37061510548" aria-label="Skambinti +370 615 10548"><i class="ph ph-phone" aria-hidden="true"></i><span>+370 615 10548</span></a>
+        <a class="btn btn--red btn--sm" href="#kontaktai">Gauti pasiūlymą</a>
+        <button class="burger" type="button" aria-label="Atidaryti meniu" aria-expanded="false" aria-controls="mobile-menu" data-menu-open><i class="ph ph-list" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobilus meniu | Salient: Mobile menu „Full screen“ -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <div class="mobile-menu__top">
+      <img src="assets/img/logo-white.svg" alt="Real Story">
+      <button class="mobile-menu__close" type="button" aria-label="Uždaryti meniu" data-menu-close><i class="ph ph-x" aria-hidden="true"></i></button>
+    </div>
+    <nav aria-label="Meniu mobiliesiems">
+      <ul>
+        <li><a href="index.html">Pradžia <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
+        <li><a href="pasiulymai.html">NT pasiūlymai <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
+        <li><a href="index.html#procesas">Kaip vyksta pirkimas <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
+        <li><a href="komanda.html">Komanda <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
+        <li><a href="straipsniai.html">Straipsniai <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
+        <li><a href="kontaktai.html">Kontaktai <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
+      </ul>
+    </nav>
+    <div class="mobile-menu__cta">
+      <a class="btn btn--red btn--lg" href="#kontaktai" data-menu-close>Gauti asmeninį pasiūlymą</a>
+      <a class="btn btn--glass btn--lg" href="tel:+37061510548"><i class="ph ph-phone" aria-hidden="true"></i>+370 615 10548</a>
+    </div>
+    <div class="mobile-menu__meta">
+      <a href="mailto:info@realstory.lt">info@realstory.lt</a>
+      <span>Marbella, Puerto Banús · Ispanija</span>
+      <div class="socials socials--light">
+        <a href="https://www.instagram.com/realstory.kristijonas/" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+        <a href="https://www.youtube.com/@realstory1559" aria-label="YouTube"><i class="ph ph-youtube-logo"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=100079322202283" aria-label="Facebook"><i class="ph ph-facebook-logo"></i></a>
+        <a href="https://www.linkedin.com/company/real-story-spain/" aria-label="LinkedIn"><i class="ph ph-linkedin-logo"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <main id="turinys">
